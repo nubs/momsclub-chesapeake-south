@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+    <title>{% block title %}{% endblock %} - Mom's Club Chesapeake-South</title>
+    {% stylesheets "main.less" filter="less,uglifycss" output="css/styles.css" %}
+      <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+  </head>
+  <body>
+    <nav role="navigation">
+      <ul class="navbar-nav">
+        <li {{ page == "home" ? 'class="active"' }}><a href="{{ urlFor('home') }}">Home</a></li>
+      </ul>
+    </nav>
+    <div id="notification-center">
+      {% if flash.error %}
+        <div class="error">{{ flash.error|e }}</div>
+      {% endif %}
+      {% if flash.success %}
+        <div class="success">{{ flash.success|e }}</div>
+      {% endif %}
+    </div>
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+    <footer>Made by <a href="https://github.com/nubs">nubs</a></footer>
+  </body>
+</html>

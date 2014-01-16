@@ -1,0 +1,8 @@
+{
+  "author": "Spencer Rinehart",
+  "name": "momsclub-chesapeake-south",
+  "dependencies": {
+    "less": "~1.6",
+    "uglifycss": "~0.0.7"
+  }
+}

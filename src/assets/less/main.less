@@ -1,0 +1,57 @@
+// Core variables and mixins
+@import "../../../vendor/twbs/bootstrap/less/variables.less";
+@import "../../../vendor/twbs/bootstrap/less/mixins.less";
+
+// Reset
+@import "../../../vendor/twbs/bootstrap/less/normalize.less";
+
+// Core CSS
+@import "../../../vendor/twbs/bootstrap/less/scaffolding.less";
+@import "../../../vendor/twbs/bootstrap/less/type.less";
+@import "../../../vendor/twbs/bootstrap/less/code.less";
+@import "../../../vendor/twbs/bootstrap/less/grid.less";
+@import "../../../vendor/twbs/bootstrap/less/tables.less";
+@import "../../../vendor/twbs/bootstrap/less/forms.less";
+@import "../../../vendor/twbs/bootstrap/less/buttons.less";
+
+// Components
+@import "../../../vendor/twbs/bootstrap/less/dropdowns.less";
+@import "../../../vendor/twbs/bootstrap/less/navs.less";
+@import "../../../vendor/twbs/bootstrap/less/navbar.less";
+@import "../../../vendor/twbs/bootstrap/less/jumbotron.less";
+@import "../../../vendor/twbs/bootstrap/less/alerts.less";
+
+// Utility classes
+@import "../../../vendor/twbs/bootstrap/less/utilities.less";
+
+nav {
+  .navbar;
+  .navbar-default;
+
+  ul {
+    .nav;
+    .pull-right;
+  }
+}
+
+#notification-center {
+  .container;
+
+  .error {
+    .alert;
+    .alert-danger;
+  }
+
+  .success {
+    .alert;
+    .alert-success;
+  }
+}
+
+#content {
+  .container
+}
+
+footer {
+  .text-center;
+}

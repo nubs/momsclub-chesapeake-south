@@ -1,0 +1,36 @@
+{
+  "name": "nubs/momsclub-chesapeake-south",
+  "description": "Website for the Mom's Club of Chesapeake-South.",
+  "authors": [
+  {
+    "name": "Spencer Rinehart",
+    "email": "anubis@overthemonkey.com",
+    "role": "Developer"
+  }
+  ],
+    "license": "MIT",
+    "require": {
+      "php": "~5.4",
+      "slim/slim": "~2.4",
+      "slim/views": "~0.1.1",
+      "twig/twig": "~1.15",
+      "kriswallsmith/assetic": "~1.1",
+      "twbs/bootstrap": "~3.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "~1.5"
+    },
+    "extra": {
+      "heroku": {
+        "document-root": "public",
+        "newrelic": true,
+        "php-config": [
+          "date.timezone=America/New_York"
+        ],
+        "compile": [
+          "bin/dump-assets"
+        ]
+      }
+    }
+}
+

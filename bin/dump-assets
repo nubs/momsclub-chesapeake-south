@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+<?php
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use \Assetic\AssetWriter;
+use \Assetic\Extension\Twig\AsseticExtension;
+use \Assetic\Extension\Twig\TwigFormulaLoader;
+use \Assetic\Extension\Twig\TwigResource;
+use \Assetic\Factory\AssetFactory;
+use \Assetic\Factory\LazyAssetManager;
+use \Assetic\Filter\LessFilter;
+use \Assetic\Filter\UglifyCssFilter;
+use \Assetic\FilterManager;
+use \Slim\Slim;
+use \Slim\Views\Twig;
+use \Slim\Views\TwigExtension;
+
+$nodeDir = dirname(__DIR__) . '/node_modules';
+$templatesDir = dirname(__DIR__) . '/src/templates';
+$lessDir = dirname(__DIR__) . '/src/assets/less';
+$publicDir = dirname(__DIR__) . '/public';
+$nodeBin = getenv('NODE_BIN') ?: 'node';
+
+$assetFilterManager = new FilterManager();
+$assetFilterManager->set('less', new LessFilter($nodeBin, [$nodeDir]));
+$assetFilterManager->set('uglifycss', new UglifyCssFilter("{$nodeDir}/.bin/uglifycss", $nodeBin));
+
+$assetFactory = new AssetFactory($lessDir);
+$assetFactory->setFilterManager($assetFilterManager);
+
+$twigView = new Twig();
+
+$app = new \Slim\Slim();
+$app->config('templates.path', $templatesDir);
+$view = $app->view($twigView);
+$view->parserExtensions = [new TwigExtension(), new AsseticExtension($assetFactory)];
+
+$assetManager = new LazyAssetManager($assetFactory);
+
+$assetManager->setLoader('twig', new TwigFormulaLoader($twigView->getEnvironment()));
+$assetManager->addResource(new TwigResource(new Twig_Loader_Filesystem($templatesDir), 'base.twig'), 'twig');
+
+$assetWriter = new AssetWriter($publicDir);
+$assetWriter->writeManagerAssets($assetManager);
